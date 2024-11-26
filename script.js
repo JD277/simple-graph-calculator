@@ -38,38 +38,38 @@ function drawAxis(scaleX, scaleY) {
         ctx.fillText('Y', width / 2 + 10, 20)  
         ctx.fillText('X', width - 10, height / 2 - 10)  
 
-        // Dibujar las marcas y números en el eje X
-        const stepX = 50 // Distancia entre marcas en píxeles
-        const unitX = scaleX // Unidad de escala (ajusta según tu gráfico)
+        // X Axis points
+        const stepX = 50 
+        const unitX = scaleX 
         for (let x = -width / 2; x <= width / 2; x += stepX) {
             const canvasX = originX + x
 
-            // Dibujar una marca en el eje X
+            // Draw a little line to the point
             ctx.beginPath()
             ctx.moveTo(canvasX, originY - 5)
             ctx.lineTo(canvasX, originY + 5)
             ctx.stroke()
 
-            // Dibujar el número correspondiente (evitar 0)
+            // Draw the right number
             if (x !== 0) {
                 const value = (x / stepX) * unitX // Escala al valor real
                 ctx.fillText(value.toFixed(2), canvasX - 10, originY + 20)
             }
         }
 
-        // Dibujar las marcas y números en el eje Y
+        // Y Axis points
         const stepY = 50
         const unitY = scaleY 
         for (let y = -height / 2; y <= height / 2; y += stepY) {
             const canvasY = originY - y
 
-            // Dibujar una marca en el eje Y
+            // Draw a little line to the point
             ctx.beginPath()
             ctx.moveTo(originX - 5, canvasY)
             ctx.lineTo(originX + 5, canvasY)
             ctx.stroke()
 
-            // Dibujar el número correspondiente (evitar 0)
+            // Draw the right number
             if (y !== 0) {
                 const value = (y / stepY) * unitY 
                 ctx.fillText(value.toFixed(2), originX + 10, canvasY + 5)
@@ -78,7 +78,7 @@ function drawAxis(scaleX, scaleY) {
         
 }
 
-// graph the square function
+// Graph the square function
 function graph(a, b, c, min, max) {
     // Show the equation in the web page
     updateEquation(a,b,c)
