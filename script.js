@@ -16,7 +16,7 @@ function updateEquation(a,b,c) {
 }
 
 // Graph the axis 
-function drawAxis() {
+function drawAxis(scaleX, scaleY) {
         // Drawing the axis
         ctx.strokeStyle = "#FFFFFF"
         ctx.lineWidth = 5
@@ -37,6 +37,44 @@ function drawAxis() {
         ctx.font = '16px Arial'
         ctx.fillText('Y', width / 2 + 10, 20)  
         ctx.fillText('X', width - 10, height / 2 - 10)  
+
+        // Dibujar las marcas y números en el eje X
+        const stepX = 50 // Distancia entre marcas en píxeles
+        const unitX = scaleX // Unidad de escala (ajusta según tu gráfico)
+        for (let x = -width / 2; x <= width / 2; x += stepX) {
+            const canvasX = originX + x
+
+            // Dibujar una marca en el eje X
+            ctx.beginPath()
+            ctx.moveTo(canvasX, originY - 5)
+            ctx.lineTo(canvasX, originY + 5)
+            ctx.stroke()
+
+            // Dibujar el número correspondiente (evitar 0)
+            if (x !== 0) {
+                const value = (x / stepX) * unitX // Escala al valor real
+                ctx.fillText(value.toFixed(2), canvasX - 10, originY + 20)
+            }
+        }
+
+        // Dibujar las marcas y números en el eje Y
+        const stepY = 50
+        const unitY = scaleY 
+        for (let y = -height / 2; y <= height / 2; y += stepY) {
+            const canvasY = originY - y
+
+            // Dibujar una marca en el eje Y
+            ctx.beginPath()
+            ctx.moveTo(originX - 5, canvasY)
+            ctx.lineTo(originX + 5, canvasY)
+            ctx.stroke()
+
+            // Dibujar el número correspondiente (evitar 0)
+            if (y !== 0) {
+                const value = (y / stepY) * unitY 
+                ctx.fillText(value.toFixed(2), originX + 10, canvasY + 5)
+            }
+        }
         
 }
 
@@ -48,10 +86,10 @@ function graph(a, b, c, min, max) {
     // Clean the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    drawAxis()
-
     const scaleX = width / (max - min) 
     const scaleY = height / (max - min) 
+    drawAxis(scaleX, scaleY)
+
 
     // Draw the function
     ctx.strokeStyle = "blue"
